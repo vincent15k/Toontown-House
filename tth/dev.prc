@@ -1,5 +1,6 @@
 window-title Toontown House
-
+win-origin -1 -1
+win-size 1280 720
 ###########################
 SERVER CONFIG
 DO NOT EDIT
@@ -43,7 +44,7 @@ want-game-tables #t
 want-chinese-checkers #t
 want-checkers #t
 want-find-four #t
-want-top-toons #t
+want-top-toons #f
 want-golf-karts #t
 want-parties #t
 
