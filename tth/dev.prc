@@ -81,6 +81,6 @@ force-black-cat-mgr #t
 mega-invasion-shards 401
 want-instant-delivery #t
 metagame-min-2-players #t
-forbid-surfers-game #t
+forbid-surfers-game #f
 
 

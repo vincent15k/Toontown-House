@@ -70,5 +70,5 @@ mega-invasion-shards 401 402
 want-top-toons #t
 ban-do-ban #t
 
-forbid-surfers-game #t
+forbid-surfers-game #f
 metagame-min-2-players #t
