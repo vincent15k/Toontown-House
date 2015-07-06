@@ -1,13 +1,3 @@
-Toontown House Repository
-==============================================================================
-==============================================================================
-
-Please keep the repo clean.
-To run the game, go see [this wiki page]
-(https://github.com/teamct/toontownhouse/wiki/Run-the-game-and-the-server).
-
-To report a bug, go on [the tracker]
-(https://github.com/teamct/toontownhouse/issues).
-
-Please push to MASTER only for small commits. Bigger commits (for example, if you're editing more than 25 files) should be pushed in a branch with your name. When it will be finished, please start a pull request.
-
+# Toontown-House 
+This is a Modified Version Of Toontown House, This Includes the following fixes, Widescreen support, many gui fixes, New unites, New Emotions, new emotions added to catalog, enabled parties, door collisions fixed, garden drop game disabled to stop people cheating and using it as a no collision hack. Clarabell icon put to its correct place instead of in middle of screen. Clarabell Also now talks thanks and credit to ttr and sits in a room. Doodles have had a bit of work to fix a few crashes too. Name tags are now clickable (not fully but supported alot better)
+My idea for doing this was after going onto toontown next and looking at how bad widescreen was it had not been ajusted at all so i decided to put together widescreen and enable some other neat fetures i have enjoyed from elsewhere and bring them together 
