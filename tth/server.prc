@@ -36,7 +36,7 @@ want-news-page #f
 want-news-tab #f
 want-housing #f
 want-old-fireworks #t
-want-instant-parties #t
+want-instant-parties #f
 want-silly-meter #t
 want-game-tables #f
 want-lawbot-cogdo #t

@@ -38,7 +38,7 @@ want-news-page #f
 want-news-tab #f
 want-housing #t
 want-old-fireworks #t
-want-instant-parties #t
+want-instant-parties #f
 want-silly-meter #t
 want-game-tables #f
 want-chinese-checkers #f
