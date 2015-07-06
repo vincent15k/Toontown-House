@@ -153,10 +153,8 @@ class DistributedDoor(DistributedObject.DistributedObject, DelayDeletable):
                 
             doorTrigger = building.find(pattern)
             if doorTrigger:
-                doorTrigger.setY(doorTrigger, -3 if self.doorType != DoorTypes.EXT_STANDARD else 0)
+                doorTrigger.setY(doorTrigger, -1 if self.doorType != DoorTypes.EXT_STANDARD else 0)
                 doorTrigger.node().setName(self.getTriggerName())
-                if __debug__:
-                    doorTrigger.show()
                 
                 # hacky: hard coded fixes
                 if 'hq' in repr(building.getName()):

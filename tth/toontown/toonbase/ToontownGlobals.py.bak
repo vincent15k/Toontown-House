@@ -2,6 +2,7 @@ import TTLocalizer
 from otp.otpbase.OTPGlobals import *
 from direct.showbase.PythonUtil import Enum, invertDict
 from pandac.PandaModules import BitMask32, Vec4
+from toontown.estate import HouseGlobals
 MapHotkeyOn = 'alt'
 MapHotkeyOff = 'alt-up'
 MapHotkey = 'alt'
@@ -12,7 +13,14 @@ DefaultDatabaseChannelId = AccountDatabaseChannelId
 DatabaseIdFromClassName = {'Account': AccountDatabaseChannelId}
 CogHQCameraFov = 60.0
 BossBattleCameraFov = 72.0
-MakeAToonCameraFov = (39, 30)
+MakeAToonCameraFov = 48.0
+VPElevatorFov = 53.0
+CFOElevatorFov = 43.0
+CJElevatorFov = 59.0
+CEOElevatorFov = 59.0
+CBElevatorFov = 42.0
+WantPromotion = 0
+PendingPromotion = 1
 CeilingBitmask = BitMask32(256)
 FloorEventBitmask = BitMask32(16)
 PieBitmask = BitMask32(256)
@@ -27,15 +35,17 @@ PetLookatNonPetBitmask = BitMask32(512)
 BanquetTableBitmask = BitMask32(1024)
 FullPies = 65535
 CogHQCameraFar = 900.0
-CogHQCameraNear = 2.0
+CogHQCameraNear = 1.0
 CashbotHQCameraFar = 2000.0
-CashbotHQCameraNear = 2.0
+CashbotHQCameraNear = 1.0
 LawbotHQCameraFar = 3000.0
-LawbotHQCameraNear = 2.0
+LawbotHQCameraNear = 1.0
 BossbotHQCameraFar = 3000.0
-BossbotHQCameraNear = 2.0
+BossbotHQCameraNear = 1.0
 SpeedwayCameraFar = 8000.0
-SpeedwayCameraNear = 2.0
+SpeedwayCameraNear = 1.0
+DreamlandCameraNear = 1.0
+DreamlandCameraFar= 2000.0
 MaxMailboxContents = 30
 MaxHouseItems = 45
 MaxAccessories = 50

@@ -76,6 +76,7 @@ tempLoader = Loader()
 backgroundNode = tempLoader.loadSync(Filename('phase_3/models/gui/loading-background'))
 
 from direct.gui import DirectGuiGlobals
+from direct.gui.DirectGui import *
 import ToontownGlobals
 DirectGuiGlobals.setDefaultFontFunc(ToontownGlobals.getInterfaceFont)
 
@@ -92,39 +93,29 @@ if base.win == None:
     
 launcher.setPandaErrorCode(0)
 launcher.setPandaWindowOpen()
-
 ConfigVariableDouble('decompressor-step-time').setValue(0.01)
 ConfigVariableDouble('extractor-step-time').setValue(0.01)
-
-# loading screen
 backgroundNodePath = aspect2d.attachNewNode(backgroundNode, 0)
 backgroundNodePath.setPos(0.0, 0.0, 0.0)
 backgroundNodePath.setScale(render2d, VBase3(1))
-backgroundNodePath.find('**/fg').setBin('fixed', 20)
-backgroundNodePath.find('**/fg').setScale(1/(4./3.), 1, 1*(4./3.))
-backgroundNodePath.find('**/bg').setBin('fixed', 10)
-
-# change the logo
-backgroundNodePath.find('**/fg').stash()
-
-from direct.gui.DirectGui import OnscreenImage
-logo = OnscreenImage('phase_3/maps/toontown-logo-new.png')
-logo.reparentTo(backgroundNodePath)
-logo.setBin('fixed', 20)
+backgroundNodePath.find('**/fg').hide()
+logo = OnscreenImage(
+    image='phase_3/maps/toontown-logo-new.png',
+    scale=(1 / (4.0/3.0), 1, 1 / (4.0/3.0)),
+    pos=backgroundNodePath.find('**/fg').getPos())
 logo.setTransparency(TransparencyAttrib.MAlpha)
-
+logo.setBin('fixed', 20)
+logo.reparentTo(backgroundNodePath)
+# backgroundNodePath.find('**/fg').setBin('fixed', 20)
+# backgroundNodePath.find('**/fg').setScale(1 / (4.0/3.0), 1, 16.0 / 9.0)
+backgroundNodePath.find('**/bg').setBin('fixed', 10)
 base.graphicsEngine.renderFrame()
-
-# default DGG stuff
 DirectGuiGlobals.setDefaultRolloverSound(base.loadSfx('phase_3/audio/sfx/GUI_rollover.ogg'))
 DirectGuiGlobals.setDefaultClickSound(base.loadSfx('phase_3/audio/sfx/GUI_create_toon_fwd.ogg'))
 DirectGuiGlobals.setDefaultDialogGeom(loader.loadModel('phase_3/models/gui/dialog_box_gui'))
-
-# localizer
 import TTLocalizer
 from otp.otpbase import OTPGlobals
 OTPGlobals.setDefaultProductPrefix(TTLocalizer.ProductPrefix)
-
 # loading music
 music = None
 if base.musicManagerIsValid:

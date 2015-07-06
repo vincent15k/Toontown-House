@@ -1,6 +1,6 @@
 window-title Toontown House
 win-origin -1 -1
-win-size 1280 720
+win-size 1280 760
 ###########################
 SERVER CONFIG
 DO NOT EDIT
@@ -40,13 +40,14 @@ want-housing #t
 want-old-fireworks #t
 want-instant-parties #t
 want-silly-meter #t
-want-game-tables #t
-want-chinese-checkers #t
-want-checkers #t
-want-find-four #t
+want-game-tables #f
+want-chinese-checkers #f
+want-checkers #f
+want-find-four #f
 want-top-toons #f
 want-golf-karts #t
 want-parties #t
+want-gifting #f
 
 #CogDominiums
 want-emblems #t
@@ -73,10 +74,13 @@ parent-password-set #t
 holiday-list 64,65,66
 
 ai-sleep .05
-log-stack-dump #f
+log-stack-dump #t
 
 account-db-type local
 force-black-cat-mgr #t
 mega-invasion-shards 401
 want-instant-delivery #t
 metagame-min-2-players #t
+forbid-surfers-game #t
+
+

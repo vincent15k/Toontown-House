@@ -531,6 +531,8 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
                     self.unlockLevelViz()
             if currStateName != 'NoLocalToon':
                 self.localToonFsm.request('NoLocalToon')
+        for suit in self.luredSuits:
+            suit.loop('lured')
         return oldtoons
 
     def adjust(self, timestamp):
@@ -1239,7 +1241,7 @@ class DistributedBattleBase(DistributedNode.DistributedNode, BattleBase):
             if localAvatar and hasattr(localAvatar, 'inventory') and localAvatar.inventory:
                 localAvatar.inventory.setInteractivePropTrackBonus(self.interactivePropTrackBonus)
         camera.wrtReparentTo(self)
-        base.camLens.setFov(self.camFov)
+        base.camLens.setMinFov(self.camFov/(4./3.))
         return
 
     def exitHasLocalToon(self):

@@ -37,6 +37,7 @@ class CatalogGardenStarterItem(CatalogItem.CatalogItem):
         print 'rental-- record purchase'
         if avatar:
             print 'starter garden-- has avater'
+            estate = simbase.air.estateManager._lookupEstate(avatar.doId)
             if estate:
                 print 'starter garden-- has estate'
                 estate.placeStarterGarden(avatar.doId)

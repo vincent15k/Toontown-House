@@ -301,22 +301,13 @@ class ToonBase(OTPBase.OTPBase, FNAFBase.FNAFBase):
         self.marginManager = MarginManager()
         self.margins = self.aspect2d.attachNewNode(self.marginManager, DirectGuiGlobals.MIDGROUND_SORT_INDEX + 1)
         mm = self.marginManager
-        self.leftCells = [
-            mm.addGridCell(0.25, -0.6, base.a2dTopLeft),
-            mm.addGridCell(0.25, -1.0, base.a2dTopLeft),
-            mm.addGridCell(0.25, -1.4, base.a2dTopLeft)
-        ]
-        self.bottomCells = [
-            mm.addGridCell(0.4, 0.2, base.a2dBottomCenter),
-            mm.addGridCell(-0.4, 0.2, base.a2dBottomCenter),
-            mm.addGridCell(-1.0, 0.2, base.a2dBottomCenter),
-            mm.addGridCell(1.0, 0.2, base.a2dBottomCenter)
-        ]
-        self.rightCells = [
-            mm.addGridCell(-0.25, -0.6, base.a2dTopRight),
-            mm.addGridCell(-0.25, -1.0, base.a2dTopRight),
-            mm.addGridCell(-0.25, -1.4, base.a2dTopRight)
-        ]
+        self.leftCells = [mm.addGridCell(0, 1, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop), mm.addGridCell(0, 2, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop), mm.addGridCell(0, 3, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop)]
+        self.bottomCells = [mm.addGridCell(0.5, 0, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop),
+         mm.addGridCell(1.5, 0, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop),
+         mm.addGridCell(2.5, 0, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop),
+         mm.addGridCell(3.5, 0, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop),
+         mm.addGridCell(4.5, 0, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop)]
+        self.rightCells = [mm.addGridCell(5, 2, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop), mm.addGridCell(5, 1, base.a2dLeft, base.a2dRight, base.a2dBottom, base.a2dTop)]
 
     def setCellsAvailable(self, cell_list, available):
         for cell in cell_list:

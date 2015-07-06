@@ -83,6 +83,7 @@ def createMinigame(air, playerArray, trolleyZone, minigameZone = None, previousG
                 mgId = desiredNextGame
     mgCtors = {ToontownGlobals.RaceGameId: DistributedRaceGameAI.DistributedRaceGameAI,
      ToontownGlobals.CannonGameId: DistributedCannonGameAI.DistributedCannonGameAI,
+     ToontownGlobals.SurfersGameId: DistributedSurfersGameAI.DistributedSurfersGameAI,
      ToontownGlobals.TagGameId: DistributedTagGameAI.DistributedTagGameAI,
      ToontownGlobals.PatternGameId: DistributedPatternGameAI.DistributedPatternGameAI,
      ToontownGlobals.RingGameId: DistributedRingGameAI.DistributedRingGameAI,
@@ -98,8 +99,7 @@ def createMinigame(air, playerArray, trolleyZone, minigameZone = None, previousG
      ToontownGlobals.CogThiefGameId: DistributedCogThiefGameAI.DistributedCogThiefGameAI,
      ToontownGlobals.TwoDGameId: DistributedTwoDGameAI.DistributedTwoDGameAI,
      ToontownGlobals.TravelGameId: DistributedTravelGameAI.DistributedTravelGameAI,
-     ToontownGlobals.PhotoGameId: DistributedPhotoGameAI.DistributedPhotoGameAI,
-     ToontownGlobals.SurfersGameId: DistributedSurfersGameAI.DistributedSurfersGameAI}
+     ToontownGlobals.PhotoGameId: DistributedPhotoGameAI.DistributedPhotoGameAI}
     if ALLOW_TEMP_MINIGAMES:
         from TempMinigameAI import TempMgCtors
         for key, value in TempMgCtors.items():

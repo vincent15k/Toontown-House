@@ -38,12 +38,13 @@ want-housing #f
 want-old-fireworks #t
 want-instant-parties #t
 want-silly-meter #t
-want-game-tables #t
+want-game-tables #f
 want-lawbot-cogdo #t
 want-emblems #t
 want-cannon-rental #f
 allow-gardening-kit #f
 want-packs 1
+want-gifting #f
 
 want-classic-chars #t
 want-mickey #f
@@ -62,12 +63,12 @@ parent-password-set #t
 holiday-list 64,65,66
 
 ai-sleep .01
-log-stack-dump #f
+log-stack-dump #t
 
 account-db-type server
 mega-invasion-shards 401 402
 want-top-toons #t
 ban-do-ban #t
 
-forbid-surfers-game #f
+forbid-surfers-game #t
 metagame-min-2-players #t

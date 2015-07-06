@@ -9964,7 +9964,7 @@ HouseNames = ("Bungalow", "Tiki", "Teepee", "Castle", "Cupcake", "Cabin")
 CatalogPurchaseHouseType = "When you buy a new house type, the current one is replaced by it. To recover the old type, you'll need to buy it back. Continue?"
 
 MinigameSurfersTitle = 'Mint Runners'
-MinigameSurfersInstructions = 'todo'
+MinigameSurfersInstructions = 'Run Through The Mint Using The Arrow Keys Collect As Many Jellyeans As You Can And Avoid Been Caught By The Evil COG!'
 SurfersMap = 'Map'
 SurfersRadar = 'Radar'
 SurfersYouFell = 'You Fell!'

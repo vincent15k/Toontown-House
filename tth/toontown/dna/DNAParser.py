@@ -67,7 +67,7 @@ if config.GetBool('use-libpandadna', False):
         rightHole.setColor((0, 0, 0, 1), 0)
 
         doorTrigger = doorNodePath.find('door_*_trigger')
-        doorTrigger.setScale(2, 2, 2)
+        doorTrigger.setScale(5, 5, 5)
         doorTrigger.wrtReparentTo(parentNode, 0)
         doorTrigger.setName('door_trigger_' + block) 
 
