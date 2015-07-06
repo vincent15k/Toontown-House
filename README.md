@@ -11,3 +11,4 @@ open astron.bat
 then ai.bat
 then ud.bat 
 But it is easier to just do it the way i said the first time.
+
