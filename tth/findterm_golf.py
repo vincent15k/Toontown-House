@@ -1,0 +1,1 @@
+exec "term = raw_input('>');print filter(lambda x: x[1], [(x, (lambda f, t: [i+1 for i, x in enumerate(open(f,'rb').read().replace('\\r\\n','\\n').split('\\n')) if t in x])(x, term)) for x in __import__('glob').glob('*.py')])"
