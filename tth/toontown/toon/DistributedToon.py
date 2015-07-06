@@ -114,6 +114,9 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
         self.savedCheesyEffect = ToontownGlobals.CENormal
         self.savedCheesyHoodId = 0
         self.savedCheesyExpireTime = 0
+        self.oldCheesyEffect = ToontownGlobals.CENormal
+        self.oldCheesyHoodId = 0
+        self.oldCheesyExpireTime = 0
         if hasattr(base, 'wantPets') and base.wantPets:
             self.petTrickPhrases = []
             self.petDNA = None
@@ -294,7 +297,45 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
             self._gmType = type - 1
         if self._isGM != wasGM:
             self._handleGMName()
-        return
+			
+
+    def doResistanceEffect(self, msgIndex):
+        msgType, itemIndex = ResistanceChat.decodeId(msgIndex)
+        msgValue = ResistanceChat.getItemValue(msgIndex)
+        if msgType == ResistanceChat.RESISTANCE_TOONUP:
+            if msgValue == -1:
+                self.toonUp(self.maxHp)
+            else:
+                self.toonUp(msgValue)
+            self.notify.debug('Toon-up for ' + self.name)
+        elif msgType == ResistanceChat.RESISTANCE_RESTOCK:
+            self.inventory.NPCMaxOutInv(msgValue)
+            self.d_setInventory(self.inventory.makeNetString())
+            self.notify.debug('Restock for ' + self.name)
+        elif msgType == ResistanceChat.RESISTANCE_MONEY:
+            if msgValue == -1:
+                self.addMoney(999999)
+        elif msgType == ResistanceChat.RESISTANCE_CHEESY:
+            if self.oldCheesyExpireTime >= self.savedCheesyExpireTime:
+                self.oldCheesyEffect = self.savedCheesyEffect
+                self.oldCheesyHoodId = self.savedCheesyHoodId
+                self.oldCheesyExpireTime = self.savedCheesyExpireTime
+            else:
+                self.oldCheesyEffect = self.oldCheesyEffect
+                self.oldCheesyHoodId = self.oldCheesyHoodId
+                self.oldCheesyExpireTime = self.oldCheesyExpireTime                
+            self.setTemporaryCheesyEffect(msgValue)
+            duration = 3600
+            taskName = self.uniqueName('reapply-cheesy-effect')
+            taskMgr.doMethodLater(duration, self.__reapplyCheesyEffect, taskName, extraArgs = [self.oldCheesyEffect, self.oldCheesyHoodId, self.oldCheesyExpireTime])
+
+    def setTemporaryCheesyEffect(self, newEffect):
+        self.b_setCheesyEffect(newEffect, 0, 3600)
+			
+    def __reapplyCheesyEffect(self, oldEffect, oldHood, oldTime):
+        self.b_setCheesyEffect(oldEffect, oldHood, oldTime)
+        taskMgr.remove('reapply-cheesy-effect')
+        return Task.done
 
     def setExperience(self, experience):
         self.experience = Experience.Experience(experience, self)
@@ -2565,6 +2606,10 @@ class DistributedToon(DistributedPlayer.DistributedPlayer, Toon.Toon, Distribute
                 seq = Sequence(self.hpText.posInterval(1.0, Point3(0, 0, self.height + 1.5), blendType='easeOut'), Wait(0.85), self.hpText.colorInterval(0.1, Vec4(r, g, b, 0)), Func(self.hideHpText))
                 seq.start()
 
+    def magicFanfare(self):
+        from toontown.battle import Fanfare
+        fanfare = Sequence(Fanfare.makeFanfare(0, self)[0])
+        fanfare.start()
     def setName(self, name = 'unknownDistributedAvatar'):
         DistributedPlayer.DistributedPlayer.setName(self, name)
         self._handleGMName()
@@ -2649,3 +2694,9 @@ def gardenGame():
 @magicWord(category=CATEGORY_FUN, types=[int, str])
 def animState(multiplier, name):
     base.localAvatar.b_setAnimState(name, animMultiplier=multiplier)
+@magicWord(category=CATEGORY_FUN)
+def fanfare():
+    """ Give target toon a fanfare for the lolz. """
+    spellbook.getTarget().magicFanfare()
+    return "Jason: Because the trumpets they go...~"
+  

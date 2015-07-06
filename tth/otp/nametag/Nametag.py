@@ -5,6 +5,12 @@ from pandac.PandaModules import *
 
 import sys
 
+def logDecorator(func):
+    def runFunc(*args, **kwargs):
+        print "Calling %s.%s with arguments: %s, %s" %(func.__module__, func.__name__, str(args), str(kwargs))
+        func(*args, **kwargs)
+    return runFunc
+	
 class Nametag(ClickablePopup):
     CName = 1
     CSpeech = 2
@@ -43,6 +49,9 @@ class Nametag(ClickablePopup):
 
         self.chatString = ''
         self.chatFlags = 0
+		
+        self.balloonText = None
+        self.balloonActive = False
 
     def destroy(self):
         ClickablePopup.destroy(self)
@@ -94,6 +103,12 @@ class Nametag(ClickablePopup):
                                    button=self.getButton())
         balloon.reparentTo(self.innerNP)
 
+        if hasattr(self, 'balloonTextNode'):
+            self.balloonTextNode.setFont(self.font)
+            self.balloonTextNode.setWordwrap(self.chatWordWrap)
+            self.balloonTextNode.setText(text)
+        self.balloonActive = True
+		
     def showThought(self):
         self.showBalloon(self.getThoughtBalloon(), self.chatString)
 
@@ -132,3 +147,7 @@ class Nametag(ClickablePopup):
         panel.setScale(width + self.NAME_PADDING, 1, height + self.NAME_PADDING)
         panel.setColor(self.nameBg)
         panel.setTransparency(self.nameBg[3] < 1.0)
+
+        # Reset chat balloon variables:
+        self.balloonText = None
+        self.balloonActive = False

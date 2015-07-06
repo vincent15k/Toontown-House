@@ -305,7 +305,7 @@ def __doFlower(squirt, delay, fShowStun):
     if hp > 0:
         tracks.append(__getSplashTrack(targetPoint, scale, tSprayStarts + dSprayScale, battle))
     if hp > 0 or delay <= 0:
-        tracks.append(__getSuitTrack(suit, tContact, tSuitDodges, hp, hpbonus, kbbonus, 'squirt-small-react', died, leftSuits, rightSuits, battle, toon, fShowStun, revived=revived))
+        tracks.append(__getSuitTrack(suit, tContact, tSuitDodges, hp, hpbonus, kbbonus, 'squirt-large-react', died, leftSuits, rightSuits, battle, toon, fShowStun, revived=revived))
     return tracks
 
 

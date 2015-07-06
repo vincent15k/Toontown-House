@@ -95,7 +95,7 @@ def __createFishingPoleMultiTrack(lure, dollar, dollarName):
             opos, ohpr = battle.getActorPosHpr(suit)
             reachDist = MovieUtil.SUIT_LURE_DISTANCE
             reachPos = Point3(opos[0], opos[1] - reachDist, opos[2])
-            suitTrack.append(Func(suit.loop, 'neutral'))
+            suitTrack.append(Func(suit.loop, 'lured'))
             suitTrack.append(Wait(3.5))
             suitName = suit.getStyleName()
             retardPos, retardHpr = battle.getActorPosHpr(suit)
@@ -283,8 +283,8 @@ def __lureSlideshow(lure, npcs):
 
 
 def __createSuitDamageTrack(battle, suit, hp, lure, trapProp):
-    if trapProp == None or trapProp.isEmpty():
-        return Func(suit.loop, 'neutral')
+    if (trapProp is None) or trapProp.isEmpty():
+        return Func(suit.loop, 'lured')
     trapProp.wrtReparentTo(battle)
     trapTrack = ToontownBattleGlobals.TRAP_TRACK
     trapLevel = suit.battleTrap

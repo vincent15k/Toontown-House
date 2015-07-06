@@ -51,6 +51,7 @@ Preloaded = []
 Phase3AnimList = (('neutral', 'neutral'), ('run', 'run'))
 Phase3_5AnimList = (('walk', 'walk'),
  ('teleport', 'teleport'),
+ ('teleportIn', 'teleportIn'),
  ('book', 'book'),
  ('jump', 'jump'),
  ('running-jump', 'running-jump'),
@@ -121,7 +122,8 @@ Phase4AnimList = (('sit', 'sit'),
  ('scientistJealous', 'scientistJealous'),
  ('scientistEmcee', 'scientistEmcee'),
  ('scientistWork', 'scientistWork'),
- ('scientistGame', 'scientistGame'))
+ ('scientistGame', 'scientistGame'),
+ ('taunt', 'taunt'))
 Phase5AnimList = (('water-gun', 'water-gun'),
  ('hold-bottle', 'hold-bottle'),
  ('firehose', 'firehose'),
@@ -673,12 +675,12 @@ class Toon(Avatar.Avatar, ToonHead):
 
     def setLODs(self):
         self.setLODNode()
-        levelOneIn = base.config.GetInt('lod1-in', 20)
+        levelOneIn = base.config.GetInt('lod1-in', 600)
         levelOneOut = base.config.GetInt('lod1-out', 0)
-        levelTwoIn = base.config.GetInt('lod2-in', 80)
-        levelTwoOut = base.config.GetInt('lod2-out', 20)
-        levelThreeIn = base.config.GetInt('lod3-in', 280)
-        levelThreeOut = base.config.GetInt('lod3-out', 80)
+        levelTwoIn = base.config.GetInt('lod2-in', 700)
+        levelTwoOut = base.config.GetInt('lod2-out', 500)
+        levelThreeIn = base.config.GetInt('lod3-in', 1000)
+        levelThreeOut = base.config.GetInt('lod3-out', 700)
         self.addLOD(1000, levelOneIn, levelOneOut)
         self.addLOD(500, levelTwoIn, levelTwoOut)
         self.addLOD(250, levelThreeIn, levelThreeOut)

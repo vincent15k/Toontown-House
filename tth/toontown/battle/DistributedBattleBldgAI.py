@@ -181,6 +181,7 @@ class DistributedBattleBldgAI(DistributedBattleBaseAI.DistributedBattleBaseAI):
 
     
     def exitBuildingReward(self):
+        self.exitResume()
         pass
 
     

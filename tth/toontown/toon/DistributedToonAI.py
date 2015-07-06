@@ -137,31 +137,7 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         self.fishingRod = 0
         self.fishingTrophies = []
         self.trackArray = []
-        self.emoteAccess = [0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0,
-         0]
+        self.emoteAccess = [0] * 39
         self.maxBankMoney = ToontownGlobals.DefaultMaxBankMoney
         self.gardenSpecials = []
         self.houseId = 0
@@ -169,6 +145,9 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         self.savedCheesyEffect = ToontownGlobals.CENormal
         self.savedCheesyHoodId = 0
         self.savedCheesyExpireTime = 0
+        self.oldCheesyEffect = ToontownGlobals.CENormal
+        self.oldCheesyHoodId = 0
+        self.oldCheesyExpireTime = 0
         self.ghostMode = 0
         self.immortalMode = 0
         self.numPies = 0
@@ -2776,9 +2755,28 @@ class DistributedToonAI(DistributedPlayerAI.DistributedPlayerAI, DistributedSmoo
         elif msgType == ResistanceChat.RESISTANCE_MONEY:
             if msgValue == -1:
                 self.addMoney(999999)
+        elif msgType == ResistanceChat.RESISTANCE_CHEESY:
+            if self.oldCheesyExpireTime >= self.savedCheesyExpireTime:
+                self.oldCheesyEffect = self.savedCheesyEffect
+                self.oldCheesyHoodId = self.savedCheesyHoodId
+                self.oldCheesyExpireTime = self.savedCheesyExpireTime
             else:
-                self.addMoney(msgValue)
-            self.notify.debug('Money for ' + self.name)
+                self.oldCheesyEffect = self.oldCheesyEffect
+                self.oldCheesyHoodId = self.oldCheesyHoodId
+                self.oldCheesyExpireTime = self.oldCheesyExpireTime                
+            self.setTemporaryCheesyEffect(msgValue)
+            duration = 3600
+            taskName = self.uniqueName('reapply-cheesy-effect')
+            taskMgr.doMethodLater(duration, self.__reapplyCheesyEffect, taskName, extraArgs = [self.oldCheesyEffect, self.oldCheesyHoodId, self.oldCheesyExpireTime])
+
+    def setTemporaryCheesyEffect(self, newEffect):
+        self.b_setCheesyEffect(newEffect, 0, 3600)
+			
+    def __reapplyCheesyEffect(self, oldEffect, oldHood, oldTime):
+        self.b_setCheesyEffect(oldEffect, oldHood, oldTime)
+        taskMgr.remove('reapply-cheesy-effect')
+        return Task.done
+	
 
     def squish(self, damage):
         self.takeDamage(damage)
@@ -5303,3 +5301,32 @@ def summoncogdo(track="s", difficulty=5):
 @magicWord(category=CATEGORY_CHARACTERSTATS2, types=[int, int]) 
 def emblems(silver=10, gold=10):
     spellbook.getTarget().addEmblems((gold, silver))
+@magicWord(category=CATEGORY_FUN)
+def unlocks():
+    """
+    Unlocks the invoker's teleport access, emotions, and pet trick phrases.
+    """
+    target = spellbook.getTarget()
+
+    # First, unlock their teleport access:
+    hoods = list(ToontownGlobals.HoodsForTeleportAll)
+    target.b_setHoodsVisited(hoods)
+    target.b_setTeleportAccess(hoods)
+
+    # Next, unlock all of their emotions:
+    emotes = list(target.getEmoteAccess())
+    for emoteId in OTPLocalizer.EmoteFuncDict.values():
+        if emoteId >= len(emotes):
+            continue
+        # The following emotions are ignored because they are unable to be
+        # obtained:
+        if emoteId in (17, 18, 19):
+            continue
+        emotes[emoteId] = 1
+    target.b_setEmoteAccess(emotes)
+
+    # Finally, unlock all of their pet phrases:
+    if simbase.wantPets:
+        target.b_setPetTrickPhrases(range(7))
+
+    return 'Unlocked teleport access, emotions, and pet trick phrases!'

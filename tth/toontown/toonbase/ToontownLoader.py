@@ -60,7 +60,7 @@ class ToontownLoader(Loader.Loader, C2):
         f.setExtension('pdna')
         return C2.loadDNAFileAI(self, dnastore, f)
 
-    def beginBulkLoad(self, name, label, range, gui, tipCategory):
+    def beginBulkLoad(self, name, label, range, gui, tipCategory, zoneId):
         self._loadStartT = globalClock.getRealTime()
         Loader.Loader.notify.info("starting bulk load of block '%s'" % name)
         if self.inBulkBlock:
@@ -73,7 +73,7 @@ class ToontownLoader(Loader.Loader, C2):
         if name == "hood":
             range *= 40
             
-        self.loadingScreen.begin(range, label, gui, tipCategory)
+        self.loadingScreen.begin(range, label, gui, tipCategory, zoneId)
 
     def endBulkLoad(self, name):
         if not self.inBulkBlock:

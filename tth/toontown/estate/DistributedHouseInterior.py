@@ -79,7 +79,7 @@ class DistributedHouseInterior(DistributedObject.DistributedObject):
             else:
                 viewBase = plugNodes[0].getParent().attachNewNode('view')
                 viewBase.setTransform(plugNodes[0].getTransform())
-                plug = plugNodes[0].getParent().attachNewNode('plug')
+                plug = plugNodes[1].getParent().attachNewNode('plug')
                 plugNodes.reparentTo(plug)
                 plug.flattenLight()
                 self.windowSlots.append((plug, viewBase))

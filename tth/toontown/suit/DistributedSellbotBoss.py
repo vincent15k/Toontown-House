@@ -693,6 +693,7 @@ class DistributedSellbotBoss(DistributedBossCog.DistributedBossCog, FSM.FSM):
         self.forward = 1
         self.doAnimate()
         self.cagedToon.removeActive()
+        base.camLens.setMinFov(ToontownGlobals.VPElevatorFov/(4./3.))
 
     def exitElevator(self):
         DistributedBossCog.DistributedBossCog.exitElevator(self)

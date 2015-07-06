@@ -1,58 +1,108 @@
 from direct.interval.IntervalGlobal import *
 from pandac.PandaModules import *
+from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from toontown.toonbase import ToontownBattleGlobals
 import random
 TTBG = ToontownBattleGlobals
 TTL = TTLocalizer
+TTG = ToontownGlobals
 EFFECT_RADIUS = 30
 RESISTANCE_TOONUP = 0
 RESISTANCE_RESTOCK = 1
 RESISTANCE_MONEY = 2
-resistanceMenu = [RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY]
-resistanceDict = {RESISTANCE_TOONUP: {'menuName': TTL.ResistanceToonupMenu,
-                     'itemText': TTL.ResistanceToonupItem,
-                     'chatText': TTL.ResistanceToonupChat,
-                     'values': [10,
-                                20,
-                                40,
-                                80,
-                                -1],
-                     'items': [0,
-                               1,
-                               2,
-                               3,
-                               4]},
- RESISTANCE_MONEY: {'menuName': TTL.ResistanceMoneyMenu,
-                    'itemText': TTL.ResistanceMoneyItem,
-                    'chatText': TTL.ResistanceMoneyChat,
-                    'values': [100,
-                               200,
-                               350,
-                               600],
-                    'items': [0,
-                              1,
-                              2,
-                              3]},
- RESISTANCE_RESTOCK: {'menuName': TTL.ResistanceRestockMenu,
-                      'itemText': TTL.ResistanceRestockItem,
-                      'chatText': TTL.ResistanceRestockChat,
-                      'values': [TTBG.HEAL_TRACK,
-                                 TTBG.TRAP_TRACK,
-                                 TTBG.LURE_TRACK,
-                                 TTBG.SOUND_TRACK,
-                                 TTBG.THROW_TRACK,
-                                 TTBG.SQUIRT_TRACK,
-                                 TTBG.DROP_TRACK,
-                                 -1],
-                      'extra': [TTL.MovieNPCSOSHeal,
-                                TTL.MovieNPCSOSTrap,
-                                TTL.MovieNPCSOSLure,
-                                TTL.MovieNPCSOSSound,
-                                TTL.MovieNPCSOSThrow,
-                                TTL.MovieNPCSOSSquirt,
-                                TTL.MovieNPCSOSDrop,
-                                TTL.MovieNPCSOSAll],
+RESISTANCE_DANCE = 3
+RESISTANCE_CHEESY = 5
+allowedResistanceMessages = []
+if config.GetBool('want-resistance-toonup', True):
+    allowedResistanceMessages.append(RESISTANCE_TOONUP)
+if config.GetBool('want-resistance-restock', True):
+    allowedResistanceMessages.append(RESISTANCE_RESTOCK)
+if config.GetBool('want-resistance-money', True):
+    allowedResistanceMessages.append(RESISTANCE_MONEY)
+if config.GetBool('want-resistance-dance', True):
+    allowedResistanceMessages.append(RESISTANCE_DANCE)
+if config.GetBool('want-resistance-cheesy', True):
+    allowedResistanceMessages.append(RESISTANCE_CHEESY)
+resistanceMenu = [
+    RESISTANCE_TOONUP, RESISTANCE_RESTOCK, RESISTANCE_MONEY,
+    RESISTANCE_DANCE, RESISTANCE_CHEESY
+]
+resistanceDict = {
+    RESISTANCE_TOONUP: {
+        'menuName': TTLocalizer.ResistanceToonupMenu,
+        'itemText': TTLocalizer.ResistanceToonupItem,
+        'chatText': TTLocalizer.ResistanceToonupChat,
+        'values': [10, 20, 40, 80, -1],
+        'items': [0, 1, 2, 3, 4]
+    },
+    RESISTANCE_MONEY: {
+        'menuName': TTLocalizer.ResistanceMoneyMenu,
+        'itemText': TTLocalizer.ResistanceMoneyItem,
+        'chatText': TTLocalizer.ResistanceMoneyChat,
+        'values': [100, 200, 350, 600, 1200, 2400],
+        'items': [0, 1, 2, 3, 4, 5]
+    },
+    RESISTANCE_RESTOCK: {
+        'menuName': TTLocalizer.ResistanceRestockMenu,
+        'itemText': TTLocalizer.ResistanceRestockItem,
+        'chatText': TTLocalizer.ResistanceRestockChat,
+        'values': [
+            ToontownBattleGlobals.HEAL_TRACK,
+            ToontownBattleGlobals.TRAP_TRACK,
+            ToontownBattleGlobals.LURE_TRACK,
+            ToontownBattleGlobals.SOUND_TRACK,
+            ToontownBattleGlobals.THROW_TRACK,
+            ToontownBattleGlobals.SQUIRT_TRACK,
+            ToontownBattleGlobals.DROP_TRACK,
+            -1
+        ],
+        'extra': [
+            TTLocalizer.MovieNPCSOSHeal,
+            TTLocalizer.MovieNPCSOSTrap,
+            TTLocalizer.MovieNPCSOSLure,
+            TTLocalizer.MovieNPCSOSSound,
+            TTLocalizer.MovieNPCSOSThrow,
+            TTLocalizer.MovieNPCSOSSquirt,
+            TTLocalizer.MovieNPCSOSDrop,
+            TTLocalizer.MovieNPCSOSAll
+        ],
+        'items': [0, 1, 2, 3, 4, 5, 6, 7]
+    },
+    RESISTANCE_DANCE: {
+        'menuName': TTLocalizer.ResistanceDanceMenu,
+        'itemText': TTLocalizer.ResistanceDanceItem,
+        'chatText': TTLocalizer.ResistanceDanceChat,
+        'values': ['Dance'],
+        'items': [0]
+    },
+    RESISTANCE_CHEESY: {'menuName': TTL.ResistanceCheesyMenu,
+                      'itemText': TTL.ResistanceCheesyItem,
+                      'chatText': TTL.ResistanceCheesyChat,
+                      'values': [TTG.CENormal,
+                                 TTG.CEBigHead,
+                                 TTG.CESmallHead,
+                                 TTG.CEBigLegs,
+                                 TTG.CESmallLegs,
+                                 TTG.CEBigToon,
+                                 TTG.CESmallToon,
+                                 TTG.CEFlatPortrait,
+                                 TTG.CEFlatProfile,
+                                 TTG.CETransparent,
+                                 TTG.CENoColor,
+                                 TTG.CEInvisible,],
+                      'extra': [TTL.CheesyEffectDescriptions[0][0],
+                                TTL.CheesyEffectDescriptions[1][0],
+                                TTL.CheesyEffectDescriptions[2][0],
+                                TTL.CheesyEffectDescriptions[3][0],
+                                TTL.CheesyEffectDescriptions[4][0],
+                                TTL.CheesyEffectDescriptions[5][0],
+                                TTL.CheesyEffectDescriptions[6][0],
+                                TTL.CheesyEffectDescriptions[7][0],
+                                TTL.CheesyEffectDescriptions[8][0],
+                                TTL.CheesyEffectDescriptions[9][0],
+                                TTL.CheesyEffectDescriptions[10][0],
+                                TTL.CheesyEffectDescriptions[11][0]],
                       'items': [0,
                                 1,
                                 2,
@@ -60,7 +110,14 @@ resistanceDict = {RESISTANCE_TOONUP: {'menuName': TTL.ResistanceToonupMenu,
                                 4,
                                 5,
                                 6,
-                                7]}}
+                                7,
+                                8,
+                                9,
+                                10,
+                                11]}
+}
+
+
 
 def encodeId(menuIndex, itemIndex):
     textId = menuIndex * 100
@@ -102,6 +159,8 @@ def getItemText(textId):
         if value is -1:
             value = TTL.ResistanceToonupItemMax
     elif menuIndex is RESISTANCE_RESTOCK:
+        value = resistanceDict[menuIndex]['extra'][itemIndex]
+    elif menuIndex is RESISTANCE_CHEESY:
         value = resistanceDict[menuIndex]['extra'][itemIndex]
     return text % str(value)
 
@@ -179,6 +238,16 @@ def doEffect(textId, speakingToon, nearbyToons):
             p.renderer.setFromNode(icon)
 
         fadeColor = VBase4(0, 0, 1, 1)
+    elif menuIndex == RESISTANCE_DANCE:
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        fadeColor = VBase4(1, 0.5, 1, 1)
+        for toonId in nearbyToons:
+            toon = base.cr.doId2do.get(toonId)
+            if toon and (not toon.ghostMode):
+                toon.setAnimState('victory')
+    elif menuIndex == RESISTANCE_CHEESY:
+        effect = BattleParticles.loadParticleFile('resistanceEffectSparkle.ptf')
+        fadeColor = VBase4(1, 0.5, 1, 1)
     else:
         return
     recolorToons = Parallel()

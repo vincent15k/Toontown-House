@@ -100,6 +100,8 @@ ConfigVariableDouble('extractor-step-time').setValue(0.01)
 backgroundNodePath = aspect2d.attachNewNode(backgroundNode, 0)
 backgroundNodePath.setPos(0.0, 0.0, 0.0)
 backgroundNodePath.setScale(render2d, VBase3(1))
+backgroundNodePath.find('**/fg').setBin('fixed', 20)
+backgroundNodePath.find('**/fg').setScale(1/(4./3.), 1, 1*(4./3.))
 backgroundNodePath.find('**/bg').setBin('fixed', 10)
 
 # change the logo
@@ -136,8 +138,8 @@ if base.musicManagerIsValid:
 import ToontownLoader
 from direct.gui.DirectGui import *
 serverVersion = base.config.GetString('server-version', 'no_version_set')
-version = OnscreenText(serverVersion, pos=(-1.3, -0.975), scale=0.06, fg=Vec4(0, 0, 1, 0.6), align=TextNode.ALeft)
-loader.beginBulkLoad('init', TTLocalizer.LoaderLabel, 50, 0, TTLocalizer.TIP_NONE)
+version = OnscreenText(serverVersion, pos=(-1.3, -0.975), scale=0.06, fg=Vec4(0, 0, 0, 1), align=TextNode.ALeft)
+loader.beginBulkLoad('init', TTLocalizer.LoaderLabel, 138, 0, TTLocalizer.TIP_GENERAL, 1)
 from ToonBaseGlobal import *
 from direct.showbase.MessengerGlobal import *
 

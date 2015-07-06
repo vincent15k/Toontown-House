@@ -3,7 +3,7 @@ from toontown.toonbase import ToontownGlobals
 from toontown.toonbase import TTLocalizer
 from otp.otpbase import OTPLocalizer
 from direct.interval.IntervalGlobal import *
-LoyaltyEmoteItems = (20, 21, 22, 23, 24)
+LoyaltyEmoteItems = (5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30)
 
 class CatalogEmoteItem(CatalogItem.CatalogItem):
     sequenceNumber = 0
@@ -110,7 +110,7 @@ class CatalogEmoteItem(CatalogItem.CatalogItem):
         return self.emoteIndex
 
     def getBasePrice(self):
-        return 1200
+        return 300
 
     def decodeDatagram(self, di, versionNumber, store):
         CatalogItem.CatalogItem.decodeDatagram(self, di, versionNumber, store)

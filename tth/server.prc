@@ -1,5 +1,6 @@
 window-title Toontown House
-
+win-origin -1 -1
+win-size 1280 720
 ###########################
 # SERVER CONFIG
 # DO NOT EDIT

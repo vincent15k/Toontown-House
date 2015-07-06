@@ -50,6 +50,7 @@ class DistributedElevator(DistributedObject.DistributedObject):
         self.isSetup = 0
         self.__preSetupState = None
         self.bigElevator = 0
+        self.offsetNp = None
         return
 
     def generate(self):
@@ -116,12 +117,14 @@ class DistributedElevator(DistributedObject.DistributedObject):
                 del self.openDoors
             if hasattr(self, 'closeDoors'):
                 del self.closeDoors
-            self.offsetNP.removeNode()
         del self.fsm
         del self.openSfx
         del self.closeSfx
         self.isSetup = 0
         self.fillSlotTrack = None
+        if not self.offsetNp:
+            return
+        self.offsetNP.removeNode()
         if hasattr(base.localAvatar, 'elevatorNotifier'):
             base.localAvatar.elevatorNotifier.cleanup()
         DistributedObject.DistributedObject.delete(self)
@@ -489,6 +492,7 @@ class DistributedElevator(DistributedObject.DistributedObject):
             elevator = self.elevatorFSM
             del self.elevatorFSM
             elevator.signalDone(doneStatus)
+            base.camLens.setMinFov(ToontownGlobals.CBElevatorFov/(4./3.))
         return
 
     def getElevatorModel(self):

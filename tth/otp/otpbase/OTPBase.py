@@ -4,7 +4,14 @@ import OTPRender
 import time
 import math
 import re
+import time
+
+import OTPGlobals
+import OTPRender
+from direct.showbase.ShowBase import ShowBase
 from otp.ai.MagicWordGlobal import *
+from pandac.PandaModules import Camera, TPLow, VBase4, ColorWriteAttrib, Filename, getModelPath, NodePath, Vec4
+
 
 class OTPBase(ShowBase):
 
@@ -174,7 +181,7 @@ class OTPBase(ShowBase):
         return task.cont
 
     def getShardPopLimits(self):
-        return (300, 600, 1200)
+        return (100, 200, -1)
 
     def setLocationCode(self, locationCode):
         if locationCode != self.locationCode:

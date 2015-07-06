@@ -9,42 +9,15 @@ class MarginManager(PandaNode):
         self.cells = set()
         self.visiblePopups = set()
 
-    def addGridCell(self, x, y, left, right, bottom, top):
-        # FIXME: This is extremely ugly, but it looks fine on-screen.
-        # TODO: For widescreen, the cells must be anchored to the a2d markers,
-        # not to the MarginManager itself.
-        padding = 0.125
-        scale = 0.2
-        xStart = left + scale/2. + padding
-        yStart = bottom + scale/2. + padding
-        xEnd = right - scale/2. - padding
-        yEnd = top - scale/2. - padding
-        xInc = (xEnd-xStart)/5.
-        yInc = (yEnd-yStart)/3.5
-        
-        x2, y2 = xStart+xInc*x, yStart+yInc*y
-        y2 -= 1
-        
-        ratio = base.getAspectRatio()
-        
-        if x < 2:
-            parent = base.a2dTopLeft
-            x2 += ratio
-            
-        else:
-            parent = base.a2dTopRight
-            x2 -= ratio
-            
+    def addGridCell(self, x, y, a2dMarker):
         cell = MarginCell(self)
-        cell.reparentTo(parent)
-        cell.setScale(scale)
-        cell.setPos(x2, 0, y2)
+        cell.reparentTo(a2dMarker)
+        cell.setScale(0.2)
+        cell.setPos(x, 0, y)
         cell.setAvailable(True)
         cell.setPythonTag('MarginCell', cell)
-
         self.cells.add(cell)
         self.reorganize()
-
         return cell
 
     def setCellAvailable(self, cell, available):
