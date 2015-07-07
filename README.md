@@ -27,3 +27,15 @@ then ai.bat
 then ud.bat 
 But it is easier to just do it the way i said the first time.
 
+Credits to the following
+
+# Toontown - Rewritten https://github.com/Xenofied/TTR-Offline
+# Toontown - Infinite https://github.com/ToontownInfinite
+# Toontown - Fellowship https://github.com/Xenofied/TTF
+# Toontown - House https://gitlab.com/mastervolty/tth/commits/master
+# Toontown - Next (Closed Source)
+# Disneys Toontown Online 
+# Ugly Corny http://uglycorny.tk/
+# Buster Dachshund Creator Of DIP Content Pack http://www.mmocentralforums.com/forums/showthread.php?t=356870
+#	Captain Bigtooth creator of Happy Days Content Pack http://www.mmocentralforums.com/forums/showthread.php?t=367956
+# Sir Fireball Electrozapper creator of the Toontown Retooned Pack http://www.mmocentralforums.com/forums/showthread.php?t=357679
